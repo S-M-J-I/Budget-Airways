@@ -14,8 +14,9 @@ import { getUserDetails } from "../middlewares/middlewares.user";
 const validSignin = async (user, authContext) => {
     const uid = await signInUsingAuth(user)
     if (uid) {
-        const user = await getUserDetails(uid)
+        let user = await getUserDetails(uid)
         authContext.setLoggedIn(true)
+        user['nickname'] = user.fullname.split(' ')[0]
         authContext.setUserDetails(user)
     }
 }

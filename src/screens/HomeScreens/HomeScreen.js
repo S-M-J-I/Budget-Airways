@@ -1,20 +1,27 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import React, { useEffect } from 'react'
 import { AuthContext } from '../../providers/AuthProviders'
-import { Button } from '@react-native-material/core'
+import { Button, Stack, Text } from '@react-native-material/core'
 import styles from '../../styles/styles'
-import { signout } from '../../functions/AuthFunctions'
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
 
     return (
         <AuthContext.Consumer>
             {
                 (auth) => (
                     <View style={styles.containerhome}>
-                        <Text>HomeScreen</Text>
-                        <Text>{auth.userDetails.fullname}</Text>
-                        <Button variant='outlined' title='Log Out' onPress={() => signout(auth)} />
+                        <Button title='Search for a flight' onPress={() => navigation.navigate('create-trip')} trailing={props => <Icon name='magnify' {...props} />} />
+                        <Text>{"\n"}</Text>
+                        <Text variant='h5'>Recently Viewed</Text>
+                        <Stack spacing={5}>
+                            <Text>{auth.userDetails.fullname}</Text>
+                            <Text>{auth.userDetails.fullname}</Text>
+                            <Text>{auth.userDetails.fullname}</Text>
+                            <Text>{auth.userDetails.fullname}</Text>
+                            <Text>{auth.userDetails.fullname}</Text>
+                        </Stack>
                     </View>
                 )
             }
