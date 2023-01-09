@@ -14,6 +14,7 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         margin: 10,
         alignItems: 'center',
+        padding: 30
     },
     textInputMedium: {
         width: configs.input.WIDTH_MEDIUM,
@@ -34,5 +35,10 @@ export default StyleSheet.create({
     btn: {
         padding: configs.buttonInsets.PADDING_MEDIUM,
         fontWeight: 'bold'
+    },
+    logout: {
+        borderColor: '#ff6863',
+        borderRadius: 3,
+        color: '#ff6863'
     }
 });
