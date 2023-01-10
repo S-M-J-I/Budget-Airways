@@ -13,7 +13,6 @@ const _OPTIONS = {
 
 const getAllFlights = (start, dest, date, adults, children, infants, setFlights, setFlightsLoaded) => {
     const departureDate = date.toISOString().split('T')[0]
-    console.log(start, dest, departureDate)
     const details = {
         start,
         dest,
@@ -30,7 +29,7 @@ const getAllFlights = (start, dest, date, adults, children, infants, setFlights,
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data[0])
+            // console.log(data[0])
             setFlights(data)
             setFlightsLoaded(true)
         })

@@ -6,12 +6,6 @@ import Loader from './Loader'
 
 const FlightList = (props) => {
 
-    const ListTitle = (title) => {
-        return (
-            <Text>Flights found: </Text>
-        )
-    }
-
     const MainView = () => {
         if (props.flights.length === 0) {
             return (
@@ -20,10 +14,9 @@ const FlightList = (props) => {
         } else {
             return (
                 <FlatList
-                    ListHeaderComponent={ListTitle}
                     style={{ padding: 10, margin: 5 }}
                     data={props.flights}
-                    renderItem={({ item }) => <FlightCard start={props.start} dest={props.dest} details={item} />}
+                    renderItem={({ item }) => <FlightCard start={props.start} dest={props.dest} details={item} adults={props.adults} children={props.children} infants={props.infants} />}
                     keyExtractor={(item) => item.id}
                 />
             )

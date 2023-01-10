@@ -34,6 +34,7 @@ const HomeScreen = ({ navigation }) => {
                 alert(error.message)
             })
         setLoading(false)
+        console.log("running")
     }, [])
 
 
