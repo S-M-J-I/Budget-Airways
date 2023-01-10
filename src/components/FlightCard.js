@@ -5,9 +5,11 @@ import { HStack, Stack, Text, Badge, IconButton } from '@react-native-material/c
 import { addToWatchList, getAirlineFromIATA, getCityFromIATA } from '../middlewares/middlewares.flights'
 import { numberWithCommas } from '../middlewares/middlewares.utils'
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import styles from '../styles/styles'
+import Link from './Link'
 
 
-const FlightCard = ({ details, start, dest, showWatchList = true }) => {
+const FlightCard = ({ details, start, dest, showWatchList = true, adults, children, infants }) => {
     const [startAir, setStart] = useState('')
     const [transits, setTransits] = useState('')
     const [destAir, setDest] = useState('')
@@ -16,12 +18,12 @@ const FlightCard = ({ details, start, dest, showWatchList = true }) => {
 
 
     useEffect(() => {
-        setStart("Dhaka")
-        setDest("Istanbul")
-        setTransits("Kuwait")
-        setCarrier("Etihad")
-        setPrice("9,000 BDT")
-        // _findFlightIntervals()
+        // setStart("Dhaka")
+        // setDest("Istanbul")
+        // setTransits("Kuwait")
+        // setCarrier("Etihad")
+        // setPrice("9,000 BDT")
+        _findFlightIntervals()
     }, [])
 
 
@@ -55,8 +57,8 @@ const FlightCard = ({ details, start, dest, showWatchList = true }) => {
 
 
     return (
-        <View style={{ padding: 20, margin: 6, borderColor: 'black', borderWidth: 1, borderRadius: 5 }}>
-            <Stack style={{ padding: 10 }} center spacing={5}>
+        <View style={styles.cardView}>
+            <Stack fill center spacing={5}>
                 <HStack fill center spacing={5}>
                     <Text variant='h6'>{startAir}</Text>
                     <Text variant='h6'>To</Text>
@@ -65,9 +67,9 @@ const FlightCard = ({ details, start, dest, showWatchList = true }) => {
                 <Text variant='caption'>{transits} transit</Text>
                 <Text>{carrier}</Text>
                 <Badge label={`Price: ${price}`} color='primary' />
-                {showWatchList && (<HStack fill center>
-                    <Text variant='caption'>Add to Watchlist</Text>
-                    <IconButton icon={props => <Icon name='check' color='primary' {...props} />} onPress={() => { addToWatchList({ id: details.id, startAir, destAir, transits, carrier, price }) }} />
+                {showWatchList && (<HStack fill center spacing={20}>
+                    <IconButton icon={props => <Icon name='clock' color='primary' {...props} />} onPress={() => { addToWatchList({ id: details.id, startAir, destAir, transits, carrier, price, adults, children, infants, date: details.lastTicketingDate }) }} />
+                    <Link details={details} start={start} dest={dest} adults={adults} children={children} infants={infants} />
                 </HStack>)}
             </Stack>
         </View>

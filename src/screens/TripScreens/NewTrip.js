@@ -32,7 +32,7 @@ const NewTrip = () => {
             .then(data => {
                 let airs = []
                 let res = data.response
-                for (let i = 0; i < 50; ++i) {
+                for (let i = 0; i < 30; ++i) {
                     airs.push(res[i])
                 }
 
@@ -53,8 +53,8 @@ const NewTrip = () => {
 
     const RenderCreateTrip = () => {
         return (
-            <VStack spacing={50}>
-                <HStack spacing={25}>
+            <VStack style={styles.cardViewOutline} spacing={20}>
+                <HStack style={{ margin: 10 }} spacing={25}>
                     <VStack spacing={5}>
                         <Selector
                             title='Start'
@@ -78,21 +78,21 @@ const NewTrip = () => {
                         />
                     </VStack>
                 </HStack>
-                <HStack center spacing={20}>
+                <HStack style={{ margin: 30 }} center spacing={30}>
                     <VStack spacing={3}>
                         <Text>Adults</Text>
-                        <TextInput style={{ width: 80, height: 10 }} keyboardType='number-pad' value={adults} onChangeText={setAdults} />
+                        <TextInput style={{ width: 80, height: 10, ...styles.input }} keyboardType='number-pad' value={adults} onChangeText={setAdults} />
                     </VStack>
                     <VStack spacing={5}>
                         <Text>Children</Text>
-                        <TextInput style={{ width: 80, height: 10 }} keyboardType='number-pad' value={children} onChangeText={setChildren} />
+                        <TextInput style={{ width: 80, height: 10, ...styles.input }} keyboardType='number-pad' value={children} onChangeText={setChildren} />
                     </VStack>
                     <VStack spacing={5}>
                         <Text>Infants</Text>
-                        <TextInput style={{ width: 80, height: 10 }} keyboardType='number-pad' value={infants} onChangeText={setInfants} />
+                        <TextInput style={{ width: 80, height: 10, ...styles.input }} keyboardType='number-pad' value={infants} onChangeText={setInfants} />
                     </VStack>
                 </HStack>
-                <Button title='Choose Departure Date' onPress={() => setOpenDate(true)} />
+                <Button style={{ marginTop: 50, marginLeft: 40, marginRight: 40 }} title='Choose Departure Date' onPress={() => setOpenDate(true)} />
                 {openDate && (
                     <DateTimePicker
                         value={new Date(date)}
@@ -102,9 +102,24 @@ const NewTrip = () => {
                         }}
                     />
                 )}
-                <Button title='Show flights' onPress={getUserFlights} />
+                <HStack center spacing={20}>
+                    <Button title='Show flights' onPress={getUserFlights} />
+                    <Button title='Clear' color='error' onPress={() => {
+                        setFlights([])
+                        setStart()
+                        setDest()
+                        setDate(new Date())
+                        setFlightsLoaded(false)
+                    }} />
+                </HStack>
                 {flightListLoading && (<Loader />)}
-                {flightsLoaded && (<FlightList flights={flights} start={start} dest={dest} />)}
+                <Divider />
+                {flightsLoaded && (
+                    <>
+                        <Text variant='subtitle1'>Flights from {start} to {dest} at {date.toLocaleDateString()} </Text>
+                        <FlightList flights={flights} start={start} dest={dest} adults={adults} children={children} infants={infants} />
+                    </>
+                )}
             </VStack>
         )
     }
