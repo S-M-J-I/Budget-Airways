@@ -2,7 +2,7 @@ import { TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import { HStack, Stack, Text, Badge, IconButton } from '@react-native-material/core'
-import { getAirlineFromIATA, getCityFromIATA } from '../middlewares/middlewares.flights'
+import { addToWatchList, getAirlineFromIATA, getCityFromIATA } from '../middlewares/middlewares.flights'
 import { numberWithCommas } from '../middlewares/middlewares.utils'
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
@@ -16,12 +16,12 @@ const FlightCard = ({ details, start, dest }) => {
 
 
     useEffect(() => {
-        // setStart("Dhaka")
-        // setDest("Istanbul")
-        // setTransits("Kuwait")
-        // setCarrier("Etihad")
-        // setPrice("9,000 BDT")
-        _findFlightIntervals()
+        setStart("Dhaka")
+        setDest("Istanbul")
+        setTransits("Kuwait")
+        setCarrier("Etihad")
+        setPrice("9,000 BDT")
+        // _findFlightIntervals()
     }, [])
 
 
@@ -67,7 +67,7 @@ const FlightCard = ({ details, start, dest }) => {
                 <Badge label={`Price: ${price}`} color='primary' />
                 <HStack fill center>
                     <Text variant='caption'>Add to Watchlist</Text>
-                    <IconButton icon={props => <Icon name='check' color='primary' {...props} />} onPress={() => { }} />
+                    <IconButton icon={props => <Icon name='check' color='primary' {...props} />} onPress={() => { addToWatchList({ startAir, destAir, transits, carrier, price }) }} />
                 </HStack>
             </Stack>
         </View>
