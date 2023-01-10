@@ -1,4 +1,5 @@
 import { composeApi } from "./middlewares.utils"
+import { auth } from "../firebase/firebase"
 
 const _PATH = "users"
 
@@ -47,4 +48,25 @@ const postUserDetails = async (details) => {
         })
 }
 
-export { getUserDetails, postUserDetails }
+
+
+const getWatchList = (setList) => {
+    const uid = auth.currentUser.uid
+    fetch(composeApi(`${_PATH}/getwatchlist`), { ..._OPTIONS, body: JSON.stringify({ user: uid }) })
+        .then(res => res.json())
+        .then(data => {
+            if (data.code === 404) {
+                alert("User not found")
+            }
+
+            setList(data.watchlist)
+        })
+        .catch(error => {
+            alert(error.message)
+        })
+}
+
+
+
+
+export { getUserDetails, postUserDetails, getWatchList }

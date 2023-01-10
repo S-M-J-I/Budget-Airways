@@ -7,7 +7,7 @@ import { numberWithCommas } from '../middlewares/middlewares.utils'
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 
-const FlightCard = ({ details, start, dest }) => {
+const FlightCard = ({ details, start, dest, showWatchList = true }) => {
     const [startAir, setStart] = useState('')
     const [transits, setTransits] = useState('')
     const [destAir, setDest] = useState('')
@@ -55,7 +55,7 @@ const FlightCard = ({ details, start, dest }) => {
 
 
     return (
-        <View style={{ padding: 2, margin: 6, borderColor: 'black', borderWidth: 1, borderRadius: 5 }}>
+        <View style={{ padding: 20, margin: 6, borderColor: 'black', borderWidth: 1, borderRadius: 5 }}>
             <Stack style={{ padding: 10 }} center spacing={5}>
                 <HStack fill center spacing={5}>
                     <Text variant='h6'>{startAir}</Text>
@@ -65,10 +65,10 @@ const FlightCard = ({ details, start, dest }) => {
                 <Text variant='caption'>{transits} transit</Text>
                 <Text>{carrier}</Text>
                 <Badge label={`Price: ${price}`} color='primary' />
-                <HStack fill center>
+                {showWatchList && (<HStack fill center>
                     <Text variant='caption'>Add to Watchlist</Text>
-                    <IconButton icon={props => <Icon name='check' color='primary' {...props} />} onPress={() => { addToWatchList({ startAir, destAir, transits, carrier, price }) }} />
-                </HStack>
+                    <IconButton icon={props => <Icon name='check' color='primary' {...props} />} onPress={() => { addToWatchList({ id: details.id, startAir, destAir, transits, carrier, price }) }} />
+                </HStack>)}
             </Stack>
         </View>
     )
