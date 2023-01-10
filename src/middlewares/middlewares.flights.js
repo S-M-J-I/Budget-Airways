@@ -1,4 +1,5 @@
 import airportConfigs from "../../configs/airport.configs"
+import { auth } from "../firebase/firebase"
 import { composeApi } from "./middlewares.utils"
 
 const _PATH = "flights"
@@ -63,4 +64,24 @@ const getAirlineFromIATA = async (airline_code) => {
         })
 }
 
-export { getAllFlights, getCityFromIATA, getAirlineFromIATA }
+const addToWatchList = async (details) => {
+    const currUserUID = auth.currentUser.uid
+    details['user'] = currUserUID
+    return fetch(composeApi(`${_PATH}/add_watchlist`), { ..._OPTIONS, body: JSON.stringify(details) })
+        .then(res => res.json())
+        .then(data => {
+            if (data.message === "OK") {
+                alert('Added to watchlist!')
+                return true
+            } else {
+                alert(data.message)
+                return false
+            }
+        })
+        .catch(error => {
+            alert(error.message)
+            return false
+        })
+}
+
+export { getAllFlights, getCityFromIATA, getAirlineFromIATA, addToWatchList }
