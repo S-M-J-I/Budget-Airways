@@ -32,8 +32,7 @@ const NewTrip = () => {
             .then(data => {
                 let airs = []
                 let res = data.response
-                // console.log(data.response[10])
-                for (let i = 0; i < 100; ++i) {
+                for (let i = 0; i < 50; ++i) {
                     airs.push(res[i])
                 }
 
@@ -105,7 +104,7 @@ const NewTrip = () => {
                 )}
                 <Button title='Show flights' onPress={getUserFlights} />
                 {flightListLoading && (<Loader />)}
-                {flightsLoaded && (<FlightList flights={flights} />)}
+                {flightsLoaded && (<FlightList flights={flights} start={start} dest={dest} />)}
             </VStack>
         )
     }

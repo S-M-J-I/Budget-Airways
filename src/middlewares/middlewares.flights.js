@@ -1,4 +1,14 @@
+import airportConfigs from "../../configs/airport.configs"
 import { composeApi } from "./middlewares.utils"
+
+const _PATH = "flights"
+
+const _OPTIONS = {
+    method: "POST",
+    mode: "cors",
+    headers: { 'Content-Type': 'application/json' },
+}
+
 
 const getAllFlights = (start, dest, date, adults, children, infants, setFlights, setFlightsLoaded) => {
     const departureDate = date.toISOString().split('T')[0]
@@ -28,4 +38,29 @@ const getAllFlights = (start, dest, date, adults, children, infants, setFlights,
         })
 }
 
-export { getAllFlights }
+
+const getCityFromIATA = async (city_code) => {
+    return fetch(`https://airlabs.co/api/v9/cities?api_key=${airportConfigs.API_KEY}&city_code=${city_code}`, { method: "GET", mode: "cors" })
+        .then(res => res.json())
+        .then(data => {
+            return data.response[0].name
+        })
+        .catch(error => {
+            alert(error.message)
+            return null
+        })
+}
+
+const getAirlineFromIATA = async (airline_code) => {
+    return fetch(`https://airlabs.co/api/v9/airlines?api_key=${airportConfigs.API_KEY}&iata_code=${airline_code}`, { method: "GET", mode: "cors" })
+        .then(res => res.json())
+        .then(data => {
+            return data.response[0].name
+        })
+        .catch(error => {
+            alert(error.message)
+            return null
+        })
+}
+
+export { getAllFlights, getCityFromIATA, getAirlineFromIATA }

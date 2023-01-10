@@ -21,9 +21,9 @@ const FlightList = (props) => {
             return (
                 <FlatList
                     ListHeaderComponent={ListTitle}
-                    style={{ padding: 10 }}
+                    style={{ padding: 10, margin: 5 }}
                     data={props.flights}
-                    renderItem={({ item }) => <FlightCard details={item} />}
+                    renderItem={({ item }) => <FlightCard start={props.start} dest={props.dest} details={item} />}
                     keyExtractor={(item) => item.id}
                 />
             )
