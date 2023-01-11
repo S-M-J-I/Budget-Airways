@@ -104,7 +104,7 @@ const NewTrip = () => {
                 )}
                 <HStack center spacing={20}>
                     <Button title='Show flights' onPress={getUserFlights} />
-                    <Button title='Clear' color='error' onPress={() => {
+                    <Button title='Clear' variant='outlined' onPress={() => {
                         setFlights([])
                         setStart()
                         setDest()
