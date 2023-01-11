@@ -34,11 +34,17 @@ const HomeScreen = ({ navigation }) => {
                 alert(error.message)
             })
         setLoading(false)
-        console.log("running")
-    }, [])
+        // console.log("running")
+    }, [watchlist])
 
 
     const RenderWatchList = () => {
+        if (watchlist.length === 0) {
+            return (
+                <Text>No flights in watchList</Text>
+            )
+        }
+
         return (
             <WatchList
                 watchList={watchlist}

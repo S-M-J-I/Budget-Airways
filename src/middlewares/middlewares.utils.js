@@ -5,7 +5,7 @@ import { IP, PORT } from "../../configs/env.configs"
  * @returns {String} The url of the path we want to compose
  */
 const composeApi = (path) => {
-    return `http://${IP}:${PORT}/api/${path}`
+    return `https://flight-search.onrender.com/api/${path}`
 }
 
 const numberWithCommas = (x) => {
